@@ -3,6 +3,7 @@ import { FormatLineSpacing } from '@material-ui/icons';
 import Head from 'next/head';
 import React from 'react';
 import DashboardHeader from '../../components/DashboardHeader';
+//import teammateList from '../dashboard/app';
 
 /**
  * The dashboard / submit.
@@ -10,6 +11,26 @@ import DashboardHeader from '../../components/DashboardHeader';
  * Landing: /submit
  */
 export default function submit() {
+  const handleSubmissions = (event) => {
+    console.log(event.target.value);
+    event.preventDefault();
+    //get data out of form
+    //make post request to api
+    fetch('/api/applications', {
+      body: JSON.stringify({ ...event.target.value }),
+      headers: { 'Content-Type': 'application/json' },
+      method: 'POST',
+    }).then((result) => {
+      if (result.status === 201) {
+        alert('Your project has been submitted.');
+      } else if (result.status === 500) {
+        alert('Server error!');
+      } else {
+        console.warn('Submission failed.', result);
+      }
+    });
+  };
+
   return (
     <div className="flex flex-col flex-grow">
       <Head>
@@ -53,10 +74,15 @@ export default function submit() {
             <label className="text-1xl my-4 font-bold font-small text-left">
               Add Teammates
               <br />
-              <input
-                className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
-                type="text"
-              />
+              <div className="content">
+                <form id="add-teamates"></form>
+                <ul id="teammate-list"></ul>
+                <input
+                  className="border min-w-full pt-3 pb-3 text-grey-darkest px-5 bg-indigo-100 rounded-md"
+                  type="text"
+                />
+              </div>
+              {/* <script src="app.js"></script> */}
               <br /> <br />
             </label>
             <label className="text-1xl my-4 font-bold font-small text-left">
@@ -92,7 +118,7 @@ export default function submit() {
                 name="Facebook Instagram"
                 value="Project"
               />
-              <label className="Facebook Instagram">Facebook Instagram </label>
+              <label className="Facebook Instagram"> Facebook Instagram </label>
               <br />
               <br />
               <br />
@@ -107,7 +133,7 @@ export default function submit() {
               <br />
               <br />
               <input type="checkbox" id="Coca Cola" name="Coca Cola" value="Project" />
-              <label className="Coca Cola">Coca Cola</label>
+              <label className="Coca Cola"> Coca Cola</label>
               <br />
               <br />
               <br />
@@ -117,7 +143,7 @@ export default function submit() {
                 name="UTD Student Government"
                 value="Project"
               />
-              <label className="UTD Student Government">UTD Student Government</label>
+              <label className="UTD Student Government"> UTD Student Government</label>
               <br />
               <br />
               <br />
@@ -127,7 +153,7 @@ export default function submit() {
                 name="Facebook React API"
                 value="Project"
               />
-              <label className="vehicle2">Facebook React API</label>
+              <label className="vehicle2"> Facebook React API</label>
               <br />
               <br />
               <br />

@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { auth, firestore } from 'firebase-admin';
 import initializeApi from '../../../lib/admin/init';
+import { Registration, Submissions } from '../../../lib/types';
 
 initializeApi();
 
@@ -9,6 +10,8 @@ const db = firestore();
 const APPLICATIONS_COLLECTION = '/registrations';
 
 const USERS_COLLECTION = '/users';
+
+const SUBMISSION_COLLECTION = '/submit';
 
 /**
  * Verifies whether the given token belongs to an admin user.
@@ -72,6 +75,28 @@ async function handleGetApplications(req: NextApiRequest, res: NextApiResponse) 
     });
   }
 }
+async function handleGetSubmissions(req: NextApiRequest, res: NextApiResponse) {
+  // TODO: Handle user authorization
+  const {
+    query: { token },
+    headers,
+  } = req;
+
+  try {
+    const snapshot = await db.collection(SUBMISSION_COLLECTION).get();
+    const submissions: Submissions[] = snapshot.docs.map((snap) => {
+      // TODO: Verify the application is accurate and report if something is off
+      return snap.data() as Submissions;
+    });
+    res.status(200).json(submissions);
+  } catch (error) {
+    console.error('Error when fetching applications', error);
+    res.status(500).json({
+      code: 'internal-error',
+      message: 'Something went wrong when processing this request. Try again later.',
+    });
+  }
+}
 
 /**
  * Handles POST requests to /api/applications.
@@ -83,6 +108,7 @@ async function handleGetApplications(req: NextApiRequest, res: NextApiResponse) 
  * @param req The HTTP request
  * @param res The HTTP response
  */
+
 async function handlePostApplications(req: NextApiRequest, res: NextApiResponse) {
   const {} = req.query;
   const applicationBody = req.body;
@@ -102,6 +128,7 @@ async function handlePostApplications(req: NextApiRequest, res: NextApiResponse)
   const applicationDoc = db.collection(APPLICATIONS_COLLECTION).doc();
 
   const userDoc = db.collection(USERS_COLLECTION).doc();
+
   // TODO: Get data from user doc, return error if it doesn't exist.
 
   const userExists = false;
@@ -159,6 +186,7 @@ type ApplicationsResponse = {};
  *
  * Corresponds to /api/applications route.
  */
+
 export default async function handleApplications(
   req: NextApiRequest,
   res: NextApiResponse<ApplicationsResponse>,
@@ -169,6 +197,59 @@ export default async function handleApplications(
     return handleGetApplications(req, res);
   } else if (method === 'POST') {
     return handlePostApplications(req, res);
+  } else {
+    res.setHeader('Allow', ['GET', 'POST']);
+    res.status(405).end(`Method ${method} Not Allowed`);
+  }
+}
+
+async function handlePostSubmissions(req: NextApiRequest, res: NextApiResponse) {
+  const {} = req.query;
+  const submissionBody = req.body;
+
+  let body: any;
+  try {
+    body = JSON.parse(submissionBody);
+  } catch (error) {
+    console.error('Could not parse request JSON body');
+    res.status(400).json({
+      type: 'invalid',
+      mesage: '',
+    });
+    return;
+  }
+
+  const submissionDoc = db.collection(SUBMISSION_COLLECTION).doc();
+  const submission: WithId<Submissions> = {
+    title: '',
+    descriptiom: '',
+    teammates: '',
+    projectLinl: '',
+    additionalMedia: '',
+    challenges: [],
+  };
+
+  try {
+    const result = await submissionDoc.set(submission);
+    res.status(201);
+  } catch (error) {
+    console.error('Error when storing submission in database', error);
+    res.status(500);
+    return;
+  }
+  console.info('Project successfully submitted');
+}
+
+type submissionResponse = {};
+export async function handleSubmissions(
+  req: NextApiRequest,
+  res: NextApiResponse<submissionResponse>,
+) {
+  const { method } = req;
+  if (method === 'GET') {
+    return handleGetSubmissions(req, res);
+  } else if (method === 'POST') {
+    return handlePostSubmissions(req, res);
   } else {
     res.setHeader('Allow', ['GET', 'POST']);
     res.status(405).end(`Method ${method} Not Allowed`);

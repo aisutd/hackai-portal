@@ -1,3 +1,5 @@
+import { CheckboxClassKey } from '@material-ui/core';
+
 /**
  * A type extender that gives an object type an ID.
  */
@@ -95,4 +97,13 @@ type Registration = {
   website?: string;
   resume?: string;
   companies: Companies[];
+};
+
+type Submissions = {
+  title: string;
+  descriptiom: string;
+  teammates: string;
+  projectLinl: string;
+  additionalMedia: string;
+  challenges: Challenges[];
 };
