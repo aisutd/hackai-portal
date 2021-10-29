@@ -4,6 +4,7 @@ import Head from 'next/head';
 import React from 'react';
 import DashboardHeader from '../../components/DashboardHeader';
 //import teammateList from '../dashboard/app';
+import Sidebar from './Components/Sidebar';
 
 /**
  * The dashboard / submit.
@@ -30,9 +31,8 @@ export default function submit() {
       }
     });
   };
-
   return (
-    <div className="flex flex-col flex-grow">
+    <div className="flex flex-wrap flex-grow">
       <Head>
         <title>HackerPacks</title>
         <meta name="description" content="HackPortal's Project Submissions" />
