@@ -146,7 +146,16 @@ export default function QuestionsPage() {
     );
 
   return (
-    <div className="flex flex-col flex-grow">
+    <div
+      className="flex flex-col flex-grow"
+      style={
+        {
+          // backgroundImage: "url('../assets/background.png')",
+          // minHeight: 500,
+          // backgroundSize: 'cover',
+        }
+      }
+    >
       <Head>
         <title>HackPortal - Questions</title>
         <meta name="description" content="HackPortal's Quesiton and Answer Page " />
@@ -175,7 +184,7 @@ export default function QuestionsPage() {
             <button
               type="button"
               className="p-2 rounded-lg"
-              style={{ backgroundColor: '#9CA6FF', color: 'black' }}
+              style={{ backgroundColor: '#7965DE', color: 'black' }}
               onClick={() => {
                 submitQuestion();
               }}

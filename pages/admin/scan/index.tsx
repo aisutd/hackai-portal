@@ -219,7 +219,14 @@ export default function Admin() {
     return <div className="text-2xl font-black text-center">Unauthorized</div>;
 
   return (
-    <div className="relative flex flex-col flex-grow">
+    <div
+      className="relative flex flex-col flex-grow "
+      style={{
+        // backgroundImage: "url('../assets/background.png')",
+        minHeight: 500,
+        backgroundSize: 'cover',
+      }}
+    >
       <Head>
         <title>HackPortal - Admin</title>
         <meta name="description" content="HackPortal's Admin Page" />
@@ -237,7 +244,14 @@ export default function Admin() {
           <div className="flex items-center justify-center min-h-screen">
             <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
 
-            <div className="rounded-2xl relative bg-white flex flex-col ljustify-between p-4 rounded max-w-sm mx-auto">
+            <div
+              className="rounded-2xl relative flex flex-col ljustify-between p-4 rounded max-w-sm mx-auto"
+              style={{
+                backgroundImage: "url('assets/background.png')",
+                minHeight: 500,
+                backgroundSize: 'cover',
+              }}
+            >
               <Dialog.Title>
                 Delete <span className="font-bold">{currentScan.name}</span>
               </Dialog.Title>
@@ -272,7 +286,7 @@ export default function Admin() {
       {showNewScanForm ? (
         <div className="px-6 py-4">
           <button
-            className="p-3 rounded-lg border-2 hover:bg-gray-200"
+            className="p-3 rounded-lg border-2 bg-violet-750 hover:bg-violet-850 hover:text-white text-black"
             onClick={() => {
               setShowNewScanForm(false);
             }}
@@ -312,7 +326,7 @@ export default function Admin() {
           </div>
           <div className="flex justify-around">
             <button
-              className="mx-auto bg-green-300 p-3 rounded-lg font-bold hover:bg-green-200"
+              className="mx-auto bg-violet-750 p-3 rounded-lg font-bold hover:bg-violet-850 hover:text-white text-black"
               onClick={async () => {
                 await createNewScan();
               }}
@@ -324,7 +338,7 @@ export default function Admin() {
       ) : (
         <>
           <div className="flex flex-col justify-center top-6">
-            <div className="text-2xl font-black text-center">Scan Types</div>
+            <div className="text-2xl font-black text-center text-black">Scan Types</div>
             <div className="flex flex-row flex-wrap justify-center top-6">
               {scansFetched ? (
                 scanTypes.map((d, idx) => (
@@ -494,7 +508,7 @@ export default function Admin() {
             {!currentScan && !editScan && !showDeleteScanDialog && !startScan && (
               <div className="mx-auto my-5">
                 <button
-                  className="bg-green-300 p-3 rounded-lg font-bold hover:bg-green-200"
+                  className="font-header font-bold bg-violet-750 rounded-full border-black hover:bg-violet-850 hover:text-white text-black text-sm px-8 py-2"
                   onClick={() => {
                     setShowNewScanForm(true);
                   }}

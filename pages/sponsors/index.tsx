@@ -17,13 +17,16 @@ export default function Sponsors(props: { sponsorCard: Sponsor[] }) {
   }, []);
 
   return (
-    <div className="flex flex-col flex-grow bg-white">
+    <div
+      className="flex flex-col flex-grow"
+      // style={{ backgroundImage: "url('assets/background.png')" }}
+    >
       <Head>
         <title>HackPortal - Sponsors</title>
         <meta name="description" content="HackPortal's Sponsors Page" />
       </Head>
 
-      <h1 className="md:text-8xl text-7xl text-center my-6">Sponsors</h1>
+      <h1 className="md:text-8xl text-7xl text-center my-6 text-violet-750">Sponsors</h1>
       <section className="flex flex-wrap justify-center p-4">
         {sponsor.map(({ link, reference }, idx) => (
           <SponsorCard key={idx} link={link} reference={reference} />
@@ -50,6 +53,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     `${protocol}://${context.req.headers.host}/api/sponsor`,
     {},
   );
+  console.log(`${protocol}://${context.req.headers.host}/api/sponsor`);
   return {
     props: {
       sponsorCard: sponsorData,

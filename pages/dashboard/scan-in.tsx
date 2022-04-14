@@ -45,7 +45,14 @@ export default function Scan() {
   };
 
   return (
-    <div className="flex flex-wrap flex-grow">
+    <div
+      className="flex flex-wrap flex-grow"
+      // style={{
+      //   backgroundImage: "url('../assets/background.png')",
+      //   minHeight: 500,
+      //   backgroundSize: 'cover',
+      // }}
+    >
       <Head>
         <title>HackerPacks</title>
         <meta name="description" content="HackPortal's Scan-In" />
@@ -56,7 +63,7 @@ export default function Scan() {
       <section id="mainContent" className="px-6 py-3 w-5/6 lg:wd-7/8 md:w-6/7">
         <DashboardHeader />
         {isSignedIn ? (
-          <div className="flex flex-col items-center justify-center top-6 ">
+          <div className="flex flex-col items-center justify-center top-6 text-black">
             <div>
               <h4 className="text-center text-xl">Hacker Tag</h4>
               <p>
@@ -65,7 +72,7 @@ export default function Scan() {
               <span className="text-center text-lg">{error}</span>
             </div>
             <div
-              className="rounded-2xl bg-green-300 text-center p-3 m-auto cursor-pointer hover:brightness-125 my-3"
+              className="font-header font-bold bg-violet-750 rounded-full border-black hover:bg-violet-850 hover:text-white text-sm px-8 py-2"
               onClick={fetchQR}
             >
               Gen QR

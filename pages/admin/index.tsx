@@ -65,7 +65,14 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
     return <div className="text-2xl font-black text-center">Unauthorized</div>;
 
   return (
-    <div className="flex flex-col flex-grow">
+    <div
+      className="flex flex-col flex-grow"
+      style={{
+        // backgroundImage: "url('assets/background.png')",
+        minHeight: 500,
+        backgroundSize: 'cover',
+      }}
+    >
       <Head>
         <title>HackPortal - Admin</title>
         <meta name="description" content="HackPortal's Admin Page" />
@@ -85,7 +92,7 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
             <SuccessCard msg="Announcement posted successfully" />
           </div>
         )}
-        <h1 className="font-bold text-xl">Post Announcement: </h1>
+        <h1 className="font-bold text-xl text-violet-750">Post Announcement: </h1>
         <textarea
           value={announcement}
           onChange={(e) => setAnnouncement(e.target.value)}
@@ -97,8 +104,7 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
         <div className="flex flex-row justify-end my-4">
           <button
             type="button"
-            className="py-2 px-5 rounded-lg font-bold"
-            style={{ backgroundColor: '#9CA6FF', color: 'black' }}
+            className="py-2 px-5 rounded-lg font-bold bg-violet-750 border-black text-sm hover:bg-violet-850 hover:text-black"
             onClick={() => {
               postAnnouncement();
             }}
@@ -108,7 +114,7 @@ export default function Admin({ questions }: { questions: QADocument[] }) {
         </div>
       </div>
       <div className="p-6">
-        <h1 className="font-bold text-xl">Pending Questions: </h1>
+        <h1 className="font-bold text-xl text-violet-750">Pending Questions: </h1>
         {questions.map((question, idx) => (
           <Link key={idx} passHref href={`/admin/resolve/${question.id}`}>
             <a>

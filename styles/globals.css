@@ -8,12 +8,14 @@ body {
   padding: 0;
   margin: 0;
   font-family: sans-serif;
-}
+  /* background-image: url('../public/assets/background.png'); */
+  height: 100%;
 
-@font-face {
-  font-family: 'wavehaus';
-  src: url('/fonts/Wavehaus-66Book.ttf') format('truetype');
-  font-display: auto;
+  background-color: #F4F4F4;
+  background-position: center;
+  /* background-repeat: no-repeat; */
+  background-size: cover; 
+  color: white;
 }
 
 a.link {
@@ -26,7 +28,7 @@ a.link {
 }
 
 .element {
-  font-family: 'wavehaus';
+  font-family: 'IBM Plex Sans';
 }
 
 .profile-view {

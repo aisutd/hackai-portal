@@ -83,7 +83,16 @@ export default function Dashboard(props: {
 
   return (
     <>
-      <div className="flex flex-wrap flex-grow">
+      <div
+        className="flex flex-wrap flex-grow"
+        style={
+          {
+            // backgroundImage: "url('assets/background.png')",
+            // minHeight: 500,
+            // backgroundSize: 'cover',
+          }
+        }
+      >
         <Head>
           <title>HackPortal - Dashboard</title>
           <meta name="description" content="HackPortal's Dashboard" />
@@ -91,7 +100,7 @@ export default function Dashboard(props: {
 
         <Sidebar />
 
-        <section id="mainContent" className="lg:w-7/8 md:w-6/7 w-full px-6 py-3 bg-white">
+        <section id="mainContent" className="lg:w-7/8 md:w-6/7 w-full px-6 py-3 ">
           <DashboardHeader />
           {/* Spotlight & Announcements */}
           <div className="flex flex-wrap my-16">
@@ -133,7 +142,7 @@ export default function Dashboard(props: {
             )}
             {/* Announcements */}
             <div className="lg:w-2/5 w-full h-96">
-              <h1 className="md:text-3xl text-xl font-black">Announcements</h1>
+              <h1 className="md:text-3xl text-xl font-black text-violet-750">Announcements</h1>
               <div id="announcement-items" className="overflow-y-scroll h-9/10">
                 {announcements.map((announcement, idx) => {
                   const dateObj = new Date(announcement.timestamp!);
@@ -154,7 +163,7 @@ export default function Dashboard(props: {
 
           {/* Challenges */}
           <div className="flex flex-col items-center my-8">
-            <h1 className="md:text-3xl text-xl font-black">Challenges</h1>
+            <h1 className="md:text-3xl text-xl font-black text-violet-750">Challenges</h1>
             {/* Cards */}
             <div className="challengeGrid my-8">
               {challenges.map(({ title, description, prizes }, idx) => (
